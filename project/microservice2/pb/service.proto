@@ -1,0 +1,16 @@
+syntax = "proto3";
+option go_package = "/pb";
+
+package pb;
+
+service MyService {
+  rpc MyMethod(Request) returns (Response);
+}
+
+message Request {
+  string data = 1;
+}
+
+message Response {
+  string result = 1;
+}
