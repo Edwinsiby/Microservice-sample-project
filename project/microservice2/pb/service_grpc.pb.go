@@ -23,6 +23,11 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MyServiceClient interface {
 	MyMethod(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	ProductList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ProductListResponse, error)
+	ProductDetails(ctx context.Context, in *ProductDetailsRequest, opts ...grpc.CallOption) (*ProductDetailsResponse, error)
+	AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error)
+	RemoveFromCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error)
+	CartDetails(ctx context.Context, in *CartDetailsRequest, opts ...grpc.CallOption) (*CartDetailsResponse, error)
 }
 
 type myServiceClient struct {
@@ -42,11 +47,61 @@ func (c *myServiceClient) MyMethod(ctx context.Context, in *Request, opts ...grp
 	return out, nil
 }
 
+func (c *myServiceClient) ProductList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ProductListResponse, error) {
+	out := new(ProductListResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/ProductList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) ProductDetails(ctx context.Context, in *ProductDetailsRequest, opts ...grpc.CallOption) (*ProductDetailsResponse, error) {
+	out := new(ProductDetailsResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/ProductDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AddToCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) RemoveFromCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/RemoveFromCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) CartDetails(ctx context.Context, in *CartDetailsRequest, opts ...grpc.CallOption) (*CartDetailsResponse, error) {
+	out := new(CartDetailsResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/CartDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MyServiceServer is the server API for MyService service.
 // All implementations must embed UnimplementedMyServiceServer
 // for forward compatibility
 type MyServiceServer interface {
 	MyMethod(context.Context, *Request) (*Response, error)
+	ProductList(context.Context, *Request) (*ProductListResponse, error)
+	ProductDetails(context.Context, *ProductDetailsRequest) (*ProductDetailsResponse, error)
+	AddToCart(context.Context, *AddToCartRequest) (*Response, error)
+	RemoveFromCart(context.Context, *AddToCartRequest) (*Response, error)
+	CartDetails(context.Context, *CartDetailsRequest) (*CartDetailsResponse, error)
 	mustEmbedUnimplementedMyServiceServer()
 }
 
@@ -56,6 +111,21 @@ type UnimplementedMyServiceServer struct {
 
 func (UnimplementedMyServiceServer) MyMethod(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MyMethod not implemented")
+}
+func (UnimplementedMyServiceServer) ProductList(context.Context, *Request) (*ProductListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProductList not implemented")
+}
+func (UnimplementedMyServiceServer) ProductDetails(context.Context, *ProductDetailsRequest) (*ProductDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProductDetails not implemented")
+}
+func (UnimplementedMyServiceServer) AddToCart(context.Context, *AddToCartRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddToCart not implemented")
+}
+func (UnimplementedMyServiceServer) RemoveFromCart(context.Context, *AddToCartRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromCart not implemented")
+}
+func (UnimplementedMyServiceServer) CartDetails(context.Context, *CartDetailsRequest) (*CartDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CartDetails not implemented")
 }
 func (UnimplementedMyServiceServer) mustEmbedUnimplementedMyServiceServer() {}
 
@@ -88,6 +158,96 @@ func _MyService_MyMethod_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MyService_ProductList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).ProductList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/ProductList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).ProductList(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_ProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).ProductDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/ProductDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).ProductDetails(ctx, req.(*ProductDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AddToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AddToCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AddToCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AddToCart(ctx, req.(*AddToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_RemoveFromCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).RemoveFromCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/RemoveFromCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).RemoveFromCart(ctx, req.(*AddToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_CartDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CartDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).CartDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/CartDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).CartDetails(ctx, req.(*CartDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MyService_ServiceDesc is the grpc.ServiceDesc for MyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +258,26 @@ var MyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MyMethod",
 			Handler:    _MyService_MyMethod_Handler,
+		},
+		{
+			MethodName: "ProductList",
+			Handler:    _MyService_ProductList_Handler,
+		},
+		{
+			MethodName: "ProductDetails",
+			Handler:    _MyService_ProductDetails_Handler,
+		},
+		{
+			MethodName: "AddToCart",
+			Handler:    _MyService_AddToCart_Handler,
+		},
+		{
+			MethodName: "RemoveFromCart",
+			Handler:    _MyService_RemoveFromCart_Handler,
+		},
+		{
+			MethodName: "CartDetails",
+			Handler:    _MyService_CartDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

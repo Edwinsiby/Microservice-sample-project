@@ -15,12 +15,15 @@ func NewAPIGateway() *gin.Engine {
 	router.POST("/service1/signup", handlers.Signup)
 	router.POST("/service1/login", handlers.Login)
 	router.POST("/service1/addaddress", middleware.UserRetriveCookie, handlers.AddAddress)
+	router.DELETE("/service1/logout", handlers.Logout)
+	router.POST("/service1/adminsignup", handlers.AdminSignup)
+	router.POST("/service1/adminlogin", handlers.AdminLogin)
 
 	router.GET("/service2", handlers.HealthCheckService2)
-	router.GET("/service2/productlist", middleware.UserRetriveCookie, handlers.ProdductList)
-	router.GET("/service2/productdetails", middleware.UserRetriveCookie, handlers.ProductDetails)
-	router.POST("/service2/addtocart", middleware.UserRetriveCookie, handlers.AddToCart)
-	router.DELETE("/service2/removefromcart", middleware.UserRetriveCookie, handlers.RemoveFromCart)
+	router.GET("/service2/productlist", middleware.UserRetriveCookie, handlers.ProductList)
+	router.GET("/service2/productdetails/:id", middleware.UserRetriveCookie, handlers.ProductDetails)
+	router.POST("/service2/addtocart/:id", middleware.UserRetriveCookie, handlers.AddToCart)
+	router.DELETE("/service2/removefromcart/:id", middleware.UserRetriveCookie, handlers.RemoveFromCart)
 	router.GET("/service2/cartdetails", middleware.UserRetriveCookie, handlers.CartDetails)
 
 	router.GET("/service3", handlers.HealthCheckService3)
@@ -29,8 +32,8 @@ func NewAPIGateway() *gin.Engine {
 	router.GET("/service3/orderhistory", middleware.UserRetriveCookie, handlers.OrderHistory)
 
 	router.GET("/service4", handlers.HealthCheckService4)
-	router.POST("/service4/addproduct", handlers.AddProduct)
-	router.DELETE("/service4/removeproduct", handlers.RemoveProduct)
+	router.POST("/service4/addproduct", middleware.AdminRetriveCookie, handlers.AddProduct)
+	router.DELETE("/service4/removeproduct/:id", middleware.AdminRetriveCookie, handlers.RemoveProduct)
 
 	router.GET("/gateway", handlers.HealthCheckGateway)
 

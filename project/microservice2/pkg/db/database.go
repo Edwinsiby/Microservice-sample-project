@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"service1/pkg/entity"
+	"service2/pkg/entity"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

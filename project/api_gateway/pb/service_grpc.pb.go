@@ -24,6 +24,17 @@ const _ = grpc.SupportPackageIsVersion7
 type MyServiceClient interface {
 	MyMethod(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*Response, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	AddAddress(ctx context.Context, in *AddAddressRequest, opts ...grpc.CallOption) (*Response, error)
+	AdminSignup(ctx context.Context, in *AdminSignupRequest, opts ...grpc.CallOption) (*Response, error)
+	AdminLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*Response, error)
+	RemoveProduct(ctx context.Context, in *RemoveProductRequest, opts ...grpc.CallOption) (*Response, error)
+	ProductList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ProdductListResponse, error)
+	ProductDetails(ctx context.Context, in *ProductDetailsRequest, opts ...grpc.CallOption) (*ProductDetailsResponse, error)
+	AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error)
+	RemoveFromCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error)
+	CartDetails(ctx context.Context, in *CartDetailsRequest, opts ...grpc.CallOption) (*CartDetailsResponse, error)
 }
 
 type myServiceClient struct {
@@ -52,12 +63,122 @@ func (c *myServiceClient) Signup(ctx context.Context, in *SignupRequest, opts ..
 	return out, nil
 }
 
+func (c *myServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AddAddress(ctx context.Context, in *AddAddressRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AddAddress", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AdminSignup(ctx context.Context, in *AdminSignupRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AdminSignup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AdminLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AdminLogin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AddProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) RemoveProduct(ctx context.Context, in *RemoveProductRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/RemoveProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) ProductList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ProdductListResponse, error) {
+	out := new(ProdductListResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/ProductList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) ProductDetails(ctx context.Context, in *ProductDetailsRequest, opts ...grpc.CallOption) (*ProductDetailsResponse, error) {
+	out := new(ProductDetailsResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/ProductDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/AddToCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) RemoveFromCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/pb.MyService/RemoveFromCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *myServiceClient) CartDetails(ctx context.Context, in *CartDetailsRequest, opts ...grpc.CallOption) (*CartDetailsResponse, error) {
+	out := new(CartDetailsResponse)
+	err := c.cc.Invoke(ctx, "/pb.MyService/CartDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MyServiceServer is the server API for MyService service.
 // All implementations must embed UnimplementedMyServiceServer
 // for forward compatibility
 type MyServiceServer interface {
 	MyMethod(context.Context, *Request) (*Response, error)
 	Signup(context.Context, *SignupRequest) (*Response, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	AddAddress(context.Context, *AddAddressRequest) (*Response, error)
+	AdminSignup(context.Context, *AdminSignupRequest) (*Response, error)
+	AdminLogin(context.Context, *LoginRequest) (*LoginResponse, error)
+	AddProduct(context.Context, *AddProductRequest) (*Response, error)
+	RemoveProduct(context.Context, *RemoveProductRequest) (*Response, error)
+	ProductList(context.Context, *Request) (*ProdductListResponse, error)
+	ProductDetails(context.Context, *ProductDetailsRequest) (*ProductDetailsResponse, error)
+	AddToCart(context.Context, *AddToCartRequest) (*Response, error)
+	RemoveFromCart(context.Context, *AddToCartRequest) (*Response, error)
+	CartDetails(context.Context, *CartDetailsRequest) (*CartDetailsResponse, error)
 	mustEmbedUnimplementedMyServiceServer()
 }
 
@@ -70,6 +191,39 @@ func (UnimplementedMyServiceServer) MyMethod(context.Context, *Request) (*Respon
 }
 func (UnimplementedMyServiceServer) Signup(context.Context, *SignupRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
+}
+func (UnimplementedMyServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedMyServiceServer) AddAddress(context.Context, *AddAddressRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddAddress not implemented")
+}
+func (UnimplementedMyServiceServer) AdminSignup(context.Context, *AdminSignupRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminSignup not implemented")
+}
+func (UnimplementedMyServiceServer) AdminLogin(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (UnimplementedMyServiceServer) AddProduct(context.Context, *AddProductRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddProduct not implemented")
+}
+func (UnimplementedMyServiceServer) RemoveProduct(context.Context, *RemoveProductRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveProduct not implemented")
+}
+func (UnimplementedMyServiceServer) ProductList(context.Context, *Request) (*ProdductListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProductList not implemented")
+}
+func (UnimplementedMyServiceServer) ProductDetails(context.Context, *ProductDetailsRequest) (*ProductDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProductDetails not implemented")
+}
+func (UnimplementedMyServiceServer) AddToCart(context.Context, *AddToCartRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddToCart not implemented")
+}
+func (UnimplementedMyServiceServer) RemoveFromCart(context.Context, *AddToCartRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromCart not implemented")
+}
+func (UnimplementedMyServiceServer) CartDetails(context.Context, *CartDetailsRequest) (*CartDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CartDetails not implemented")
 }
 func (UnimplementedMyServiceServer) mustEmbedUnimplementedMyServiceServer() {}
 
@@ -120,6 +274,204 @@ func _MyService_Signup_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MyService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AddAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AddAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AddAddress",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AddAddress(ctx, req.(*AddAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AdminSignup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminSignupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AdminSignup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AdminSignup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AdminSignup(ctx, req.(*AdminSignupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AdminLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AdminLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AdminLogin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AdminLogin(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AddProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AddProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AddProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AddProduct(ctx, req.(*AddProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_RemoveProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).RemoveProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/RemoveProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).RemoveProduct(ctx, req.(*RemoveProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_ProductList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).ProductList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/ProductList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).ProductList(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_ProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).ProductDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/ProductDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).ProductDetails(ctx, req.(*ProductDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_AddToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).AddToCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/AddToCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).AddToCart(ctx, req.(*AddToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_RemoveFromCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).RemoveFromCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/RemoveFromCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).RemoveFromCart(ctx, req.(*AddToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MyService_CartDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CartDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MyServiceServer).CartDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MyService/CartDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MyServiceServer).CartDetails(ctx, req.(*CartDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MyService_ServiceDesc is the grpc.ServiceDesc for MyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +486,50 @@ var MyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Signup",
 			Handler:    _MyService_Signup_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _MyService_Login_Handler,
+		},
+		{
+			MethodName: "AddAddress",
+			Handler:    _MyService_AddAddress_Handler,
+		},
+		{
+			MethodName: "AdminSignup",
+			Handler:    _MyService_AdminSignup_Handler,
+		},
+		{
+			MethodName: "AdminLogin",
+			Handler:    _MyService_AdminLogin_Handler,
+		},
+		{
+			MethodName: "AddProduct",
+			Handler:    _MyService_AddProduct_Handler,
+		},
+		{
+			MethodName: "RemoveProduct",
+			Handler:    _MyService_RemoveProduct_Handler,
+		},
+		{
+			MethodName: "ProductList",
+			Handler:    _MyService_ProductList_Handler,
+		},
+		{
+			MethodName: "ProductDetails",
+			Handler:    _MyService_ProductDetails_Handler,
+		},
+		{
+			MethodName: "AddToCart",
+			Handler:    _MyService_AddToCart_Handler,
+		},
+		{
+			MethodName: "RemoveFromCart",
+			Handler:    _MyService_RemoveFromCart_Handler,
+		},
+		{
+			MethodName: "CartDetails",
+			Handler:    _MyService_CartDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

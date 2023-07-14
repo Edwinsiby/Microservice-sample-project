@@ -7,6 +7,10 @@ package pb;
 service MyService {
   rpc MyMethod(Request) returns (Response);
   rpc Signup(SignupRequest) returns (Response);
+  rpc Login(LoginRequest)returns (LoginResponse);
+  rpc AddAddress(AddAddressRequest) returns (Response);
+  rpc AdminSignup(AdminSignupRequest) returns (Response);
+  rpc AdminLogin(LoginRequest)returns(LoginResponse);
 }
 
 message Request {
@@ -24,4 +28,31 @@ message SignupRequest{
   string email     = 3;
   string phone     = 4;
   string password  = 5;
+}
+
+message LoginRequest{
+  string phone = 1;
+  string password = 2;
+}
+message LoginResponse{
+  string result = 1;
+  int32    userid = 2;
+}
+
+
+message AddAddressRequest{
+  int32 userid = 1;
+  string house = 2;
+  string street = 3;
+  string city = 4;
+  string pincode = 5;
+  string type = 6;
+}
+
+message AdminSignupRequest{
+  string adminname = 1;
+  string email     = 2;
+  string phone     = 3;
+  string password  = 4;
+  string role      = 5;
 }

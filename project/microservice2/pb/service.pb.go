@@ -114,6 +114,407 @@ func (x *Response) GetResult() string {
 	return ""
 }
 
+type Product struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Price    int32  `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	ImageURL string `protobuf:"bytes,4,opt,name=imageURL,proto3" json:"imageURL,omitempty"`
+	Category string `protobuf:"bytes,5,opt,name=category,proto3" json:"category,omitempty"`
+	AdminId  int32  `protobuf:"varint,6,opt,name=adminId,proto3" json:"adminId,omitempty"`
+}
+
+func (x *Product) Reset() {
+	*x = Product{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Product) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Product) ProtoMessage() {}
+
+func (x *Product) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Product.ProtoReflect.Descriptor instead.
+func (*Product) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Product) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Product) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Product) GetPrice() int32 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *Product) GetImageURL() string {
+	if x != nil {
+		return x.ImageURL
+	}
+	return ""
+}
+
+func (x *Product) GetCategory() string {
+	if x != nil {
+		return x.Category
+	}
+	return ""
+}
+
+func (x *Product) GetAdminId() int32 {
+	if x != nil {
+		return x.AdminId
+	}
+	return 0
+}
+
+type ProductListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Apparels []*Product `protobuf:"bytes,1,rep,name=apparels,proto3" json:"apparels,omitempty"`
+}
+
+func (x *ProductListResponse) Reset() {
+	*x = ProductListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProductListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductListResponse) ProtoMessage() {}
+
+func (x *ProductListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductListResponse.ProtoReflect.Descriptor instead.
+func (*ProductListResponse) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ProductListResponse) GetApparels() []*Product {
+	if x != nil {
+		return x.Apparels
+	}
+	return nil
+}
+
+type ProductDetailsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Productid int32 `protobuf:"varint,1,opt,name=productid,proto3" json:"productid,omitempty"`
+}
+
+func (x *ProductDetailsRequest) Reset() {
+	*x = ProductDetailsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProductDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductDetailsRequest) ProtoMessage() {}
+
+func (x *ProductDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductDetailsRequest.ProtoReflect.Descriptor instead.
+func (*ProductDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ProductDetailsRequest) GetProductid() int32 {
+	if x != nil {
+		return x.Productid
+	}
+	return 0
+}
+
+type ProductDetailsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Apparel *Product `protobuf:"bytes,1,opt,name=apparel,proto3" json:"apparel,omitempty"`
+}
+
+func (x *ProductDetailsResponse) Reset() {
+	*x = ProductDetailsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProductDetailsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductDetailsResponse) ProtoMessage() {}
+
+func (x *ProductDetailsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductDetailsResponse.ProtoReflect.Descriptor instead.
+func (*ProductDetailsResponse) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ProductDetailsResponse) GetApparel() *Product {
+	if x != nil {
+		return x.Apparel
+	}
+	return nil
+}
+
+type AddToCartRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Userid    int32 `protobuf:"varint,1,opt,name=userid,proto3" json:"userid,omitempty"`
+	Productid int32 `protobuf:"varint,2,opt,name=productid,proto3" json:"productid,omitempty"`
+}
+
+func (x *AddToCartRequest) Reset() {
+	*x = AddToCartRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddToCartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddToCartRequest) ProtoMessage() {}
+
+func (x *AddToCartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddToCartRequest.ProtoReflect.Descriptor instead.
+func (*AddToCartRequest) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddToCartRequest) GetUserid() int32 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
+}
+
+func (x *AddToCartRequest) GetProductid() int32 {
+	if x != nil {
+		return x.Productid
+	}
+	return 0
+}
+
+type CartDetailsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Userid int32 `protobuf:"varint,1,opt,name=userid,proto3" json:"userid,omitempty"`
+}
+
+func (x *CartDetailsRequest) Reset() {
+	*x = CartDetailsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CartDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CartDetailsRequest) ProtoMessage() {}
+
+func (x *CartDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CartDetailsRequest.ProtoReflect.Descriptor instead.
+func (*CartDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CartDetailsRequest) GetUserid() int32 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
+}
+
+type CartDetailsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId          int32 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	Apparelquantity int32 `protobuf:"varint,2,opt,name=apparelquantity,proto3" json:"apparelquantity,omitempty"`
+	Totalprice      int32 `protobuf:"varint,3,opt,name=totalprice,proto3" json:"totalprice,omitempty"`
+	Offerprice      int32 `protobuf:"varint,4,opt,name=offerprice,proto3" json:"offerprice,omitempty"`
+}
+
+func (x *CartDetailsResponse) Reset() {
+	*x = CartDetailsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CartDetailsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CartDetailsResponse) ProtoMessage() {}
+
+func (x *CartDetailsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CartDetailsResponse.ProtoReflect.Descriptor instead.
+func (*CartDetailsResponse) Descriptor() ([]byte, []int) {
+	return file_pb_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CartDetailsResponse) GetUserId() int32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *CartDetailsResponse) GetApparelquantity() int32 {
+	if x != nil {
+		return x.Apparelquantity
+	}
+	return 0
+}
+
+func (x *CartDetailsResponse) GetTotalprice() int32 {
+	if x != nil {
+		return x.Totalprice
+	}
+	return 0
+}
+
+func (x *CartDetailsResponse) GetOfferprice() int32 {
+	if x != nil {
+		return x.Offerprice
+	}
+	return 0
+}
+
 var File_pb_service_proto protoreflect.FileDescriptor
 
 var file_pb_service_proto_rawDesc = []byte{
@@ -122,11 +523,68 @@ var file_pb_service_proto_rawDesc = []byte{
 	0x74, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x22, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x32, 0x32, 0x0a, 0x09, 0x4d, 0x79, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x25, 0x0a, 0x08, 0x4d, 0x79, 0x4d, 0x65, 0x74, 0x68,
-	0x6f, 0x64, 0x12, 0x0b, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x05, 0x5a,
-	0x03, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x09, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x22, 0x95, 0x01, 0x0a, 0x07, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69,
+	0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12,
+	0x1a, 0x0a, 0x08, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x55, 0x52, 0x4c, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x55, 0x52, 0x4c, 0x12, 0x1a, 0x0a, 0x08, 0x63,
+	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63,
+	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x6d, 0x69, 0x6e,
+	0x49, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x49,
+	0x64, 0x22, 0x3e, 0x0a, 0x13, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x08, 0x61, 0x70, 0x70, 0x61,
+	0x72, 0x65, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x70, 0x62, 0x2e,
+	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x08, 0x61, 0x70, 0x70, 0x61, 0x72, 0x65, 0x6c,
+	0x73, 0x22, 0x35, 0x0a, 0x15, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x70,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x69, 0x64, 0x22, 0x3f, 0x0a, 0x16, 0x50, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x25, 0x0a, 0x07, 0x61, 0x70, 0x70, 0x61, 0x72, 0x65, 0x6c, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x52, 0x07, 0x61, 0x70, 0x70, 0x61, 0x72, 0x65, 0x6c, 0x22, 0x48, 0x0a, 0x10, 0x41, 0x64, 0x64,
+	0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a,
+	0x06, 0x75, 0x73, 0x65, 0x72, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x75,
+	0x73, 0x65, 0x72, 0x69, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x69, 0x64, 0x22, 0x2c, 0x0a, 0x12, 0x43, 0x61, 0x72, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69,
+	0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x69,
+	0x64, 0x22, 0x97, 0x01, 0x0a, 0x13, 0x43, 0x61, 0x72, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x64, 0x12, 0x28, 0x0a, 0x0f, 0x61, 0x70, 0x70, 0x61, 0x72, 0x65, 0x6c, 0x71, 0x75, 0x61, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0f, 0x61, 0x70, 0x70, 0x61,
+	0x72, 0x65, 0x6c, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x1e, 0x0a, 0x0a, 0x74,
+	0x6f, 0x74, 0x61, 0x6c, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x6f,
+	0x66, 0x66, 0x65, 0x72, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x0a, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x70, 0x72, 0x69, 0x63, 0x65, 0x32, 0xd7, 0x02, 0x0a, 0x09,
+	0x4d, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x25, 0x0a, 0x08, 0x4d, 0x79, 0x4d,
+	0x65, 0x74, 0x68, 0x6f, 0x64, 0x12, 0x0b, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x33, 0x0a, 0x0b, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12,
+	0x0b, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70,
+	0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f,
+	0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f,
+	0x0a, 0x09, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x12, 0x14, 0x2e, 0x70, 0x62,
+	0x2e, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x34, 0x0a, 0x0e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61, 0x72,
+	0x74, 0x12, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0b, 0x43, 0x61, 0x72, 0x74, 0x44, 0x65, 0x74,
+	0x61, 0x69, 0x6c, 0x73, 0x12, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x61, 0x72, 0x74, 0x44, 0x65,
+	0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70,
+	0x62, 0x2e, 0x43, 0x61, 0x72, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x05, 0x5a, 0x03, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -141,19 +599,38 @@ func file_pb_service_proto_rawDescGZIP() []byte {
 	return file_pb_service_proto_rawDescData
 }
 
-var file_pb_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_pb_service_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_pb_service_proto_goTypes = []interface{}{
-	(*Request)(nil),  // 0: pb.Request
-	(*Response)(nil), // 1: pb.Response
+	(*Request)(nil),                // 0: pb.Request
+	(*Response)(nil),               // 1: pb.Response
+	(*Product)(nil),                // 2: pb.Product
+	(*ProductListResponse)(nil),    // 3: pb.ProductListResponse
+	(*ProductDetailsRequest)(nil),  // 4: pb.ProductDetailsRequest
+	(*ProductDetailsResponse)(nil), // 5: pb.ProductDetailsResponse
+	(*AddToCartRequest)(nil),       // 6: pb.AddToCartRequest
+	(*CartDetailsRequest)(nil),     // 7: pb.CartDetailsRequest
+	(*CartDetailsResponse)(nil),    // 8: pb.CartDetailsResponse
 }
 var file_pb_service_proto_depIdxs = []int32{
-	0, // 0: pb.MyService.MyMethod:input_type -> pb.Request
-	1, // 1: pb.MyService.MyMethod:output_type -> pb.Response
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: pb.ProductListResponse.apparels:type_name -> pb.Product
+	2, // 1: pb.ProductDetailsResponse.apparel:type_name -> pb.Product
+	0, // 2: pb.MyService.MyMethod:input_type -> pb.Request
+	0, // 3: pb.MyService.ProductList:input_type -> pb.Request
+	4, // 4: pb.MyService.ProductDetails:input_type -> pb.ProductDetailsRequest
+	6, // 5: pb.MyService.AddToCart:input_type -> pb.AddToCartRequest
+	6, // 6: pb.MyService.RemoveFromCart:input_type -> pb.AddToCartRequest
+	7, // 7: pb.MyService.CartDetails:input_type -> pb.CartDetailsRequest
+	1, // 8: pb.MyService.MyMethod:output_type -> pb.Response
+	3, // 9: pb.MyService.ProductList:output_type -> pb.ProductListResponse
+	5, // 10: pb.MyService.ProductDetails:output_type -> pb.ProductDetailsResponse
+	1, // 11: pb.MyService.AddToCart:output_type -> pb.Response
+	1, // 12: pb.MyService.RemoveFromCart:output_type -> pb.Response
+	8, // 13: pb.MyService.CartDetails:output_type -> pb.CartDetailsResponse
+	8, // [8:14] is the sub-list for method output_type
+	2, // [2:8] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_pb_service_proto_init() }
@@ -186,6 +663,90 @@ func file_pb_service_proto_init() {
 				return nil
 			}
 		}
+		file_pb_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Product); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProductListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProductDetailsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProductDetailsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddToCartRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CartDetailsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CartDetailsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -193,7 +754,7 @@ func file_pb_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pb_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

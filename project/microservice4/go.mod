@@ -1,4 +1,4 @@
-module service2
+module service4
 
 go 1.20
 

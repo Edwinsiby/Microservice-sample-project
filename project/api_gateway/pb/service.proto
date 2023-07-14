@@ -7,6 +7,17 @@ package pb;
 service MyService {
   rpc MyMethod(Request) returns (Response);
   rpc Signup(SignupRequest)returns (Response);
+  rpc Login(LoginRequest)returns (LoginResponse);
+  rpc AddAddress(AddAddressRequest) returns (Response);
+  rpc AdminSignup(AdminSignupRequest) returns (Response);
+  rpc AdminLogin(LoginRequest)returns(LoginResponse);
+  rpc AddProduct(AddProductRequest)returns(Response);
+  rpc RemoveProduct(RemoveProductRequest)returns(Response);
+  rpc ProductList(Request)returns(ProdductListResponse);
+  rpc ProductDetails(ProductDetailsRequest)returns(ProductDetailsResponse);
+  rpc AddToCart(AddToCartRequest)returns(Response);
+  rpc RemoveFromCart(AddToCartRequest)returns(Response);
+  rpc CartDetails(CartDetailsRequest)returns(CartDetailsResponse);
 }
 
 message Request {
@@ -23,4 +34,77 @@ message SignupRequest{
   string email     = 3;
   string phone     = 4;
   string password  = 5;
+}
+
+message LoginRequest{
+  string phone = 1;
+  string password = 2;
+}
+
+message LoginResponse{
+  string result = 1;
+  int32    userid = 2;
+}
+
+message AddAddressRequest{
+  int32 userid = 1;
+  string house = 2;
+  string street = 3;
+  string city = 4;
+  string pincode = 5;
+  string type = 6;
+}
+
+message AdminSignupRequest{
+  string adminname = 1;
+  string email     = 2;
+  string phone     = 3;
+  string password  = 4;
+  string role      = 5;
+}
+
+message AddProductRequest{
+  string name     = 1;       
+	int32  price    = 2;     
+	string imageURL = 3;       
+	string category = 4;   
+	int32  adminId  = 5; 
+}
+
+message RemoveProductRequest{
+   int32 productid = 1;
+}
+message Product{
+  int32  id       = 1;
+  string name     = 2;       
+	int32  price    = 3;     
+	string imageURL = 4;       
+	string category = 5;   
+}
+message ProdductListResponse{
+  repeated Product apparels = 1;
+}
+
+message ProductDetailsRequest{
+   int32 productid = 1;
+}
+
+message ProductDetailsResponse{
+  Product apparel = 1;
+}
+
+message AddToCartRequest{
+  int32 userid    = 1;
+  int32 productid = 2;
+}
+
+message CartDetailsRequest{
+  int32 userid = 1;
+}
+
+message CartDetailsResponse{
+   int32 userId          = 1; 
+   int32 apparelquantity = 2;
+   int32 totalprice    = 3; 
+   int32 offerprice    = 4;
 }

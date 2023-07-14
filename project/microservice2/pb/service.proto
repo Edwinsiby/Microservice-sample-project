@@ -5,6 +5,11 @@ package pb;
 
 service MyService {
   rpc MyMethod(Request) returns (Response);
+  rpc ProductList(Request)returns(ProductListResponse);
+  rpc ProductDetails(ProductDetailsRequest)returns(ProductDetailsResponse);
+  rpc AddToCart(AddToCartRequest)returns(Response);
+  rpc RemoveFromCart(AddToCartRequest)returns(Response);
+  rpc CartDetails(CartDetailsRequest)returns(CartDetailsResponse);
 }
 
 message Request {
@@ -13,4 +18,39 @@ message Request {
 
 message Response {
   string result = 1;
+}
+  message Product{
+    int32  id       = 1;
+    string name     = 2;       
+    int32  price    = 3;     
+    string imageURL = 4;       
+    string category = 5;   
+    int32  adminId  = 6; 
+  }
+  message ProductListResponse{
+    repeated Product apparels = 1;
+  }
+
+  message ProductDetailsRequest{
+    int32 productid = 1;
+  }
+
+  message ProductDetailsResponse{
+    Product apparel = 1;
+  }
+
+  message AddToCartRequest{
+  int32 userid    = 1;
+  int32 productid = 2;
+}
+
+message CartDetailsRequest{
+  int32 userid = 1;
+}
+
+message CartDetailsResponse{
+   int32 userId          = 1; 
+   int32 apparelquantity = 2;
+   int32 totalprice    = 3; 
+   int32 offerprice    = 4;
 }

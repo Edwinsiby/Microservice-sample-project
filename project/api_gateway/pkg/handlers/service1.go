@@ -2,9 +2,11 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
+
+	"gateway/pkg/entity"
+	"gateway/pkg/middleware"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -12,13 +14,18 @@ import (
 	"gateway/pb"
 )
 
-func HealthCheckService1(c *gin.Context) {
-	conn2, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+var conn1 *grpc.ClientConn
+var err error
+
+func init() {
+	conn1, err = grpc.Dial("localhost:50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Failed to connect to service1: %v", err)
 	}
-	defer conn2.Close()
-	client := pb.NewMyServiceClient(conn2)
+}
+func HealthCheckService1(c *gin.Context) {
+
+	client := pb.NewMyServiceClient(conn1)
 	req := &pb.Request{
 		Data: "Mydata",
 	}
@@ -30,31 +37,122 @@ func HealthCheckService1(c *gin.Context) {
 }
 
 func Signup(c *gin.Context) {
-
-	conn1, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Failed to connect to service1: %v", err)
+	var userInput entity.Signup
+	if err := c.ShouldBindJSON(&userInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
-	defer conn1.Close()
 	client := pb.NewMyServiceClient(conn1)
 	req := &pb.SignupRequest{
-		Firstname: "Edwin",
-		Lastname:  "Siby",
-		Email:     "edwin@gmail.com",
-		Phone:     "9048402133",
-		Password:  "pass@123",
+		Firstname: userInput.FirstName,
+		Lastname:  userInput.LastName,
+		Email:     userInput.Email,
+		Phone:     userInput.Phone,
+		Password:  userInput.Password,
 	}
 	resp, err := client.Signup(context.Background(), req)
 	if err != nil {
-		log.Fatalf("Failed to call MyMethod: %v", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		c.String(http.StatusOK, resp.Result)
 	}
-	c.String(http.StatusOK, resp.Result)
+
 }
 
 func Login(c *gin.Context) {
-	fmt.Println("hi")
+	var userInput entity.Login
+	if err := c.ShouldBindJSON(&userInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	client := pb.NewMyServiceClient(conn1)
+	req := &pb.LoginRequest{
+		Phone:    userInput.Phone,
+		Password: userInput.Password,
+	}
+	resp, err := client.Login(context.Background(), req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		middleware.CreateJwtCookie(int(resp.Userid), userInput.Phone, "user", c)
+		c.String(http.StatusOK, resp.Result)
+	}
 }
 
 func AddAddress(c *gin.Context) {
-	fmt.Println("hi")
+	userID, _ := c.Get("userID")
+	userId := int32(userID.(int))
+	var address entity.Address
+	if err := c.ShouldBindJSON(&address); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	client := pb.NewMyServiceClient(conn1)
+	req := &pb.AddAddressRequest{
+		Userid:  userId,
+		House:   address.House,
+		Street:  address.Street,
+		City:    address.City,
+		Pincode: address.Pincode,
+		Type:    address.Type,
+	}
+	resp, err := client.AddAddress(context.Background(), req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"massage": resp.Result})
+	}
+}
+
+func Logout(c *gin.Context) {
+	err := middleware.DeleteCookie(c)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user cookie deletion failed"})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"message": "logged out successfully"})
+	}
+}
+
+func AdminSignup(c *gin.Context) {
+	var userInput entity.Admin
+	if err := c.ShouldBindJSON(&userInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	client := pb.NewMyServiceClient(conn1)
+	req := &pb.AdminSignupRequest{
+		Adminname: userInput.AdminName,
+		Email:     userInput.Email,
+		Phone:     userInput.Phone,
+		Password:  userInput.Password,
+		Role:      userInput.Role,
+	}
+	resp, err := client.AdminSignup(context.Background(), req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		c.String(http.StatusOK, resp.Result)
+	}
+
+}
+
+func AdminLogin(c *gin.Context) {
+	var userInput entity.Login
+	if err := c.ShouldBindJSON(&userInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	client := pb.NewMyServiceClient(conn1)
+	req := &pb.LoginRequest{
+		Phone:    userInput.Phone,
+		Password: userInput.Password,
+	}
+	resp, err := client.AdminLogin(context.Background(), req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		middleware.CreateJwtCookie(int(resp.Userid), userInput.Phone, "admin", c)
+		c.String(http.StatusOK, resp.Result)
+	}
 }
