@@ -1,66 +1,38 @@
 package gateway
 
 import (
-	"context"
-	"log"
-	"net/http"
+	"gateway/pkg/middleware"
 
-	"gateway/pb"
+	"github.com/gin-gonic/gin"
 
-	"google.golang.org/grpc"
+	"gateway/pkg/handlers"
 )
 
-func NewAPIGateway() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+func NewAPIGateway() *gin.Engine {
+	router := gin.Default()
 
-		// Check the path and route the request accordingly
-		switch r.URL.Path {
-		case "/api/service1":
-			conn1, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
-			if err != nil {
-				log.Fatalf("Failed to connect to service1: %v", err)
-			}
-			defer conn1.Close()
-			client := pb.NewMyServiceClient(conn1)
-			req := &pb.Request{
-				Data: "Mydata",
-			}
-			resp, err := client.MyMethod(context.Background(), req)
-			if err != nil {
-				log.Fatalf("Failed to call MyMethod: %v", err)
-			}
-			w.Write([]byte(resp.Result))
-		case "/api/service1/signup":
-			conn1, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
-			if err != nil {
-				log.Fatalf("Failed to connect to service1: %v", err)
-			}
-			defer conn1.Close()
-			client := pb.NewMyServiceClient(conn1)
-			req := &pb.SignupRequest{
-				Firstname: "Edwin",
-				Lastname:  "Siby",
-				Email:     "edwin@gmail.com",
-				Phone:     "9048402133",
-				Password:  "pass@123",
-			}
-			resp, err := client.Signup(context.Background(), req)
-			if err != nil {
-				log.Fatalf("Failed to call MyMethod: %v", err)
-			}
-			w.Write([]byte(resp.Result))
-		case "/api/service2":
-			conn2, err := grpc.Dial("localhost:50052", grpc.WithInsecure())
-			if err != nil {
-				log.Fatalf("Failed to connect to service1: %v", err)
-			}
-			defer conn2.Close()
+	router.GET("/service1", handlers.HealthCheckService1)
+	router.POST("/service1/signup", handlers.Signup)
+	router.POST("/service1/login", handlers.Login)
+	router.POST("/service1/addaddress", middleware.UserRetriveCookie, handlers.AddAddress)
 
-		case "/api/get":
+	router.GET("/service2", handlers.HealthCheckService2)
+	router.GET("/service2/productlist", middleware.UserRetriveCookie, handlers.ProdductList)
+	router.GET("/service2/productdetails", middleware.UserRetriveCookie, handlers.ProductDetails)
+	router.POST("/service2/addtocart", middleware.UserRetriveCookie, handlers.AddToCart)
+	router.DELETE("/service2/removefromcart", middleware.UserRetriveCookie, handlers.RemoveFromCart)
+	router.GET("/service2/cartdetails", middleware.UserRetriveCookie, handlers.CartDetails)
 
-			w.Write([]byte("This is the GET endpoint"))
-		default:
-			http.NotFound(w, r)
-		}
-	})
+	router.GET("/service3", handlers.HealthCheckService3)
+	router.POST("/service3/placeorder", middleware.UserRetriveCookie, handlers.PlaceOrder)
+	router.POST("/service3/cancelorder", middleware.UserRetriveCookie, handlers.CancelOrder)
+	router.GET("/service3/orderhistory", middleware.UserRetriveCookie, handlers.OrderHistory)
+
+	router.GET("/service4", handlers.HealthCheckService4)
+	router.POST("/service4/addproduct", handlers.AddProduct)
+	router.DELETE("/service4/removeproduct", handlers.RemoveProduct)
+
+	router.GET("/gateway", handlers.HealthCheckGateway)
+
+	return router
 }
